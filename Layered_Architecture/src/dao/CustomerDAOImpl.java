@@ -15,7 +15,7 @@ import java.util.ArrayList;
  **/
 
 public class CustomerDAOImpl {
-
+    //load all Customers
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         Statement stm = connection.createStatement();

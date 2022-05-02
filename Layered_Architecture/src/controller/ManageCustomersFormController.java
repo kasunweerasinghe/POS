@@ -89,7 +89,6 @@ public class ManageCustomersFormController {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
-
     }
 
     private void initUI() {
