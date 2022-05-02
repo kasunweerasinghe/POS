@@ -137,10 +137,9 @@ public class ManageItemsFormController {
             if (!existItem(code)) {
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
-            Connection connection = DBConnection.getDbConnection().getConnection();
-            PreparedStatement pstm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
-            pstm.setString(1, code);
-            pstm.executeUpdate();
+
+            ItemDAOImpl itemDAO = new ItemDAOImpl();
+            itemDAO.deleteItems(code);
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();
@@ -181,7 +180,7 @@ public class ManageItemsFormController {
                 }
                 //Save Item
                ItemDAOImpl itemDAO = new ItemDAOImpl();
-                itemDAO.deleteItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
+                itemDAO.saveItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
 

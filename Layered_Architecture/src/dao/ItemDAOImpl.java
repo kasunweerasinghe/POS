@@ -24,8 +24,16 @@ public class ItemDAOImpl {
         }
         return allItem;
     }
-    //delete items
-    public boolean deleteItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+    //delete Items
+    public boolean deleteItems(String code) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
+        pstm.setString(1, code);
+        return pstm.executeUpdate()>0;
+    }
+
+    //save items
+    public boolean saveItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)");
         pstm.setString(1, dto.getCode());
