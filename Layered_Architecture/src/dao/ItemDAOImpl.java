@@ -24,7 +24,7 @@ public class ItemDAOImpl {
         }
         return allItem;
     }
-
+    //delete items
     public boolean deleteItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)");
@@ -33,6 +33,25 @@ public class ItemDAOImpl {
         pstm.setBigDecimal(3, dto.getUnitPrice());
         pstm.setInt(4, dto.getQtyOnHand());
         return pstm.executeUpdate()>0;
+    }
+
+    //update items
+    public boolean updateItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
+        pstm.setString(1, dto.getDescription());
+        pstm.setBigDecimal(2, dto.getUnitPrice());
+        pstm.setInt(3, dto.getQtyOnHand());
+        pstm.setString(4, dto.getCode());
+        return pstm.executeUpdate()>0;
+    }
+
+    //is items exists
+    public boolean isItemExists(String code) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
+        pstm.setString(1, code);
+        return pstm.executeQuery().next();
     }
 
 }
