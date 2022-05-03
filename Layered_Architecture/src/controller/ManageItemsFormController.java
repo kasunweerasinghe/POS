@@ -32,6 +32,7 @@ import java.util.ArrayList;
  **/
 
 public class ManageItemsFormController {
+    //Property Injection
     ItemDAO itemDAO = new ItemDAOImpl();
 
     public AnchorPane root;
@@ -78,7 +79,6 @@ public class ManageItemsFormController {
         tblItems.getItems().clear();
         try {
             /*Get all items*/
-
             ArrayList<ItemDTO> allCustomers = itemDAO.loadAllItems();
 
             for(ItemDTO item:allCustomers){
@@ -141,7 +141,6 @@ public class ManageItemsFormController {
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
 
-            //ItemDAO itemDAO = new ItemDAOImpl();
             itemDAO.deleteItems(code);
 
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
@@ -182,8 +181,6 @@ public class ManageItemsFormController {
                     new Alert(Alert.AlertType.ERROR, code + " already exists").show();
                 }
                 //Save Item
-
-                //ItemDAO itemDAO = new ItemDAOImpl();
                 itemDAO.saveItem(new ItemDTO(code,description,unitPrice,qtyOnHand));
 
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
@@ -200,8 +197,6 @@ public class ManageItemsFormController {
                     new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
                 }
                 /*Update Item*/
-
-                //ItemDAO itemDAO = new ItemDAOImpl();
                 itemDAO.updateItem(new ItemDTO(code, description,unitPrice,qtyOnHand));
 
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
@@ -221,16 +216,12 @@ public class ManageItemsFormController {
 
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
-
-        //ItemDAO itemDAO = new ItemDAOImpl();
         return itemDAO.isItemExists(code);
     }
 
 
     private String generateNewId() {
         try {
-
-            //ItemDAO itemDAO = new ItemDAOImpl();
             return itemDAO.generateID();
 
         } catch (SQLException e) {
