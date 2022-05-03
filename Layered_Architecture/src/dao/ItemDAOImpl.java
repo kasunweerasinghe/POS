@@ -1,6 +1,7 @@
 package dao;
 
 import db.DBConnection;
+import model.CustomerDTO;
 import model.ItemDTO;
 import view.tdm.ItemTM;
 
@@ -13,12 +14,10 @@ public class ItemDAOImpl implements ItemDAO{
     public ArrayList<ItemDTO> loadAllItems() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Item");
         ArrayList<ItemDTO> allItem = new ArrayList<>();
-
         while (rst.next()) {
-            String code = rst.getString(1);
-            String description = rst.getString(2);
-            BigDecimal unitPrice = rst.getBigDecimal(3);
-            int qtyOnHand = rst.getInt(4);
+            while (rst.next()) {
+                allItem.add(new ItemDTO(rst.getString(1), rst.getString(2), rst.getBigDecimal(3),rst.getInt(4)));
+            }
         }
         return allItem;
     }
