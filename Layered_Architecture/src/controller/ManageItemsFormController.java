@@ -32,9 +32,6 @@ import java.util.ArrayList;
  **/
 
 public class ManageItemsFormController {
-    //Property Injection
-    ItemDAO itemDAO = new ItemDAOImpl();
-
     public AnchorPane root;
     public JFXTextField txtCode;
     public JFXTextField txtDescription;
@@ -44,6 +41,9 @@ public class ManageItemsFormController {
     public TableView<ItemTM> tblItems;
     public JFXTextField txtUnitPrice;
     public JFXButton btnAddNewItem;
+
+    //Property Injection
+    private final ItemDAO itemDAO = new ItemDAOImpl();
 
     public void initialize() {
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));

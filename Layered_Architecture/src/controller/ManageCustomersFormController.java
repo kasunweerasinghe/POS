@@ -36,9 +36,6 @@ import java.util.List;
  **/
 
 public class ManageCustomersFormController {
-    //Property Injection
-    CustomerDAO customerDAO = new CustomerDAOImpl();
-
     public AnchorPane root;
     public JFXTextField txtCustomerName;
     public JFXTextField txtCustomerId;
@@ -47,6 +44,10 @@ public class ManageCustomersFormController {
     public JFXTextField txtCustomerAddress;
     public TableView<CustomerTM> tblCustomers;
     public JFXButton btnAddNewCustomer;
+
+    //Property Injection
+    private final CustomerDAO customerDAO = new CustomerDAOImpl();
+
 
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
