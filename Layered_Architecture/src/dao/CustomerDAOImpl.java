@@ -34,25 +34,17 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     //update Customer
     public boolean updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
-        //Connection connection = DBConnection.getDbConnection().getConnection();
-        //PreparedStatement pstm = connection.prepareStatement("UPDATE Customer SET name=?, address=? WHERE id=?");
        return SQLUtil.executeUpdate("UPDATE Customer SET name=?, address=? WHERE id=?",dto.getName(),dto.getAddress(),dto.getId());
     }
 
     //is customer exists
     public boolean isCustomerExists(String id) throws SQLException, ClassNotFoundException {
-        //Connection connection = DBConnection.getDbConnection().getConnection();
-        //PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
-        pstm.setString(1, id);
-        return pstm.executeQuery().next();
+          return SQLUtil.executeQuery("SELECT id FROM Customer WHERE id=?",id).next();
     }
 
     //customer delete
     public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
-        //Connection connection = DBConnection.getDbConnection().getConnection();
-        //PreparedStatement pstm = connection.prepareStatement("DELETE FROM Customer WHERE id=?");
-        pstm.setString(1, id);
-        return pstm.executeUpdate()>0;
+       return SQLUtil.executeUpdate("DELETE FROM Customer WHERE id=?",id);
     }
 
     //Generate new ID
