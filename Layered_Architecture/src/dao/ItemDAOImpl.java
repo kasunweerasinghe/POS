@@ -11,9 +11,7 @@ import java.util.ArrayList;
 public class ItemDAOImpl implements ItemDAO{
     //load All Items
     public ArrayList<ItemDTO> loadAllItems() throws SQLException, ClassNotFoundException {
-        //Connection connection = DBConnection.getDbConnection().getConnection();
-        //Statement stm = connection.createStatement();
-        ResultSet rst = stm.executeQuery("SELECT * FROM Item");
+        ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Item");
         ArrayList<ItemDTO> allItem = new ArrayList<>();
 
         while (rst.next()) {
@@ -26,46 +24,28 @@ public class ItemDAOImpl implements ItemDAO{
     }
     //delete Items
     public boolean deleteItems(String code) throws SQLException, ClassNotFoundException {
-        //Connection connection = DBConnection.getDbConnection().getConnection();
-        //PreparedStatement pstm = connection.prepareStatement("DELETE FROM Item WHERE code=?");
-        pstm.setString(1, code);
-        return pstm.executeUpdate()>0;
+       return SQLUtil.executeUpdate("DELETE FROM Item WHERE code=?",code);
     }
 
     //save items
     public boolean saveItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
-        //Connection connection = DBConnection.getDbConnection().getConnection();
-        //PreparedStatement pstm = connection.prepareStatement("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)");
-        pstm.setString(1, dto.getCode());
-        pstm.setString(2, dto.getDescription());
-        pstm.setBigDecimal(3, dto.getUnitPrice());
-        pstm.setInt(4, dto.getQtyOnHand());
-        return pstm.executeUpdate()>0;
+       return SQLUtil.executeUpdate("INSERT INTO Item (code, description, unitPrice, qtyOnHand) VALUES (?,?,?,?)",dto.getCode(),dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand());
     }
 
     //update items
     public boolean updateItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
-        //Connection connection = DBConnection.getDbConnection().getConnection();
-        //PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
-        pstm.setString(1, dto.getDescription());
-        pstm.setBigDecimal(2, dto.getUnitPrice());
-        pstm.setInt(3, dto.getQtyOnHand());
-        pstm.setString(4, dto.getCode());
-        return pstm.executeUpdate()>0;
+        return SQLUtil.executeUpdate("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?",dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand(),dto.getCode());
     }
 
     //is items exists
     public boolean isItemExists(String code) throws SQLException, ClassNotFoundException {
-        //Connection connection = DBConnection.getDbConnection().getConnection();
-        //PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
-        pstm.setString(1, code);
-        return pstm.executeQuery().next();
+       return SQLUtil.executeQuery("SELECT code FROM Item WHERE code=?",code).next();
     }
 
     //generate ID
     public String generateID() throws SQLException, ClassNotFoundException {
         //Connection connection = DBConnection.getDbConnection().getConnection();
-        ResultSet rst = connection.createStatement().executeQuery("SELECT code FROM Item ORDER BY code DESC LIMIT 1;");
+        ResultSet rst = SQLUtil.executeQuery("SELECT code FROM Item ORDER BY code DESC LIMIT 1;");
         if (rst.next()) {
             String id = rst.getString("code");
             int newItemId = Integer.parseInt(id.replace("I00-", "")) + 1;
