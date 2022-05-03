@@ -29,22 +29,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     //save customer
     public boolean saveCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
-        //Connection connection = DBConnection.getDbConnection().getConnection();
-        //PreparedStatement pstm = connection.prepareStatement("INSERT INTO Customer (id,name, address) VALUES (?,?,?)");
-        pstm.setString(1, dto.getId());
-        pstm.setString(2, dto.getName());
-        pstm.setString(3, dto.getAddress());
-        return pstm.executeUpdate()>0;
+        return SQLUtil.executeUpdate("INSERT INTO Customer (id,name, address) VALUES (?,?,?)",dto.getId(),dto.getName(),dto.getAddress());
     }
 
     //update Customer
     public boolean updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
         //Connection connection = DBConnection.getDbConnection().getConnection();
         //PreparedStatement pstm = connection.prepareStatement("UPDATE Customer SET name=?, address=? WHERE id=?");
-        pstm.setString(1, dto.getName());
-        pstm.setString(2, dto.getAddress());
-        pstm.setString(3, dto.getId());
-        return pstm.executeUpdate()>0;
+       return SQLUtil.executeUpdate("UPDATE Customer SET name=?, address=? WHERE id=?",dto.getName(),dto.getAddress(),dto.getId());
     }
 
     //is customer exists
