@@ -14,8 +14,6 @@ import java.util.ArrayList;
 public class CustomerDAOImpl implements CustomerDAO {
     //load all Customers
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
-        //Connection connection = DBConnection.getDbConnection().getConnection();
-        //Statement stm = connection.createStatement();
         ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Customer");
         ArrayList<CustomerDTO> allCustomers = new ArrayList<>();
         while (rst.next()) {
