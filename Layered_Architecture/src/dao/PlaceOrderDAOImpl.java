@@ -49,11 +49,18 @@ public class PlaceOrderDAOImpl {
         }
         return allCustomerID;
 
-
     }
 
-    public void loadAllItemCodes(){
+    public ArrayList<String> loadAllItemCodes() throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        Statement stm = connection.createStatement();
+        ResultSet rst = stm.executeQuery("SELECT * FROM Item");
+        ArrayList<String> loadAllItemCode = new ArrayList<>();
 
+        while (rst.next()){
+            loadAllItemCode.add(rst.getString(1));
+        }
+        return loadAllItemCode;
     }
 
     public void saveOrder(){
