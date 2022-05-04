@@ -213,13 +213,9 @@ public class PlaceOrderFormController {
 
     private void loadAllCustomerIds() {
         try {
-            Connection connection = DBConnection.getDbConnection().getConnection();
-            Statement stm = connection.createStatement();
-            ResultSet rst = stm.executeQuery("SELECT * FROM Customer");
 
-            while (rst.next()) {
-                cmbCustomerId.getItems().add(rst.getString("id"));
-            }
+            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
+            cmbCustomerId.getItems().addAll(placeOrderDAO.loadAllCustomerIds());
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to load customer ids").show();

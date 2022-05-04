@@ -3,8 +3,17 @@ package dao;
 import db.DBConnection;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class PlaceOrderDAOImpl {
+
+    public void searchCustomer() throws SQLException, ClassNotFoundException {
+
+    }
+
+    public void findItem(){
+
+    }
 
     public boolean isExistsItem(String code) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
@@ -27,4 +36,29 @@ public class PlaceOrderDAOImpl {
 
         return rst.next() ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1)) : "OID-001";
     }
+
+    public ArrayList<String> loadAllCustomerIds() throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        Statement stm = connection.createStatement();
+        ResultSet rst = stm.executeQuery("SELECT * FROM Customer");
+
+        ArrayList<String> allCustomerID = new ArrayList<>();
+
+        while (rst.next()){
+            allCustomerID.add(rst.getString(1));
+        }
+        return allCustomerID;
+
+
+    }
+
+    public void loadAllItemCodes(){
+
+    }
+
+    public void saveOrder(){
+
+    }
+
+
 }
