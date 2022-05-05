@@ -3,7 +3,6 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import dao.PlaceOrderDAOImpl;
 import db.DBConnection;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -188,21 +187,26 @@ public class PlaceOrderFormController {
     }
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
-        PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-        return placeOrderDAO.isExistsItem(code);
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
+        pstm.setString(1, code);
+        return pstm.executeQuery().next();
     }
 
     boolean existCustomer(String id) throws SQLException, ClassNotFoundException {
-       PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-       return placeOrderDAO.isExistsCustomer(id);
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("SELECT id FROM Customer WHERE id=?");
+        pstm.setString(1, id);
+        return pstm.executeQuery().next();
     }
 
     public String generateNewOrderId() {
         try {
+            Connection connection = DBConnection.getDbConnection().getConnection();
+            Statement stm = connection.createStatement();
+            ResultSet rst = stm.executeQuery("SELECT oid FROM `Orders` ORDER BY oid DESC LIMIT 1;");
 
-            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-            return placeOrderDAO.generateOrderID();
-
+            return rst.next() ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1)) : "OID-001";
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to generate a new order id").show();
         } catch (ClassNotFoundException e) {
@@ -213,9 +217,13 @@ public class PlaceOrderFormController {
 
     private void loadAllCustomerIds() {
         try {
+            Connection connection = DBConnection.getDbConnection().getConnection();
+            Statement stm = connection.createStatement();
+            ResultSet rst = stm.executeQuery("SELECT * FROM Customer");
 
-            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-            cmbCustomerId.getItems().addAll(placeOrderDAO.loadAllCustomerIds());
+            while (rst.next()) {
+                cmbCustomerId.getItems().add(rst.getString("id"));
+            }
 
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to load customer ids").show();
@@ -227,10 +235,12 @@ public class PlaceOrderFormController {
     private void loadAllItemCodes() {
         try {
             /*Get all items*/
-
-            PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
-            cmbItemCode.getItems().addAll(placeOrderDAO.loadAllItemCodes());
-
+            Connection connection = DBConnection.getDbConnection().getConnection();
+            Statement stm = connection.createStatement();
+            ResultSet rst = stm.executeQuery("SELECT * FROM Item");
+            while (rst.next()) {
+                cmbItemCode.getItems().add(rst.getString("code"));
+            }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {

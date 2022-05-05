@@ -42,7 +42,7 @@ public class ManageCustomersFormController {
     public JFXButton btnAddNewCustomer;
 
     //Property Injection
-    private final CrudDAO customerDAO = new CustomerDAOImpl();
+    private final CrudDAO<CustomerDTO,String> customerDAO = new CustomerDAOImpl();
 
 
     public void initialize() {
@@ -152,6 +152,7 @@ public class ManageCustomersFormController {
                 }
 
                 customerDAO.save(new CustomerDTO(id,name,address));
+
 
                 tblCustomers.getItems().add(new CustomerTM(id, name, address));
             } catch (SQLException e) {
