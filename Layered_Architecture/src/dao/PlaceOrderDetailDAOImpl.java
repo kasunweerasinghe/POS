@@ -16,7 +16,7 @@ public class PlaceOrderDetailDAOImpl implements CrudDAO<OrderDetailDTO,String>{
 
     @Override
     public boolean save(OrderDetailDTO dto) throws SQLException, ClassNotFoundException {
-        return false;
+        return SQLUtil.executeUpdate("INSERT INTO OrderDetails (oid, itemCode, unitPrice, qty) VALUES (?,?,?,?)", dto.getOid(), dto.getItemCode(), dto.getUnitPrice(), dto.getQty());
     }
 
     @Override
