@@ -9,8 +9,39 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ItemDAOImpl implements ItemDAO{
-    //load All Items
+public class ItemDAOImpl implements CrudDAO<ItemDTO,String>{
+    @Override
+    public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean save(ItemDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean isExists(String s) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public boolean delete(String s) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public String generateID() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+
+    /*//load All Items
     public ArrayList<ItemDTO> loadAllItems() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Item");
         ArrayList<ItemDTO> allItem = new ArrayList<>();
@@ -53,5 +84,5 @@ public class ItemDAOImpl implements ItemDAO{
             return "I00-001";
         }
     }
-
+*/
 }

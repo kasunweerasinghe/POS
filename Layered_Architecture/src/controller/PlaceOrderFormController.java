@@ -227,6 +227,7 @@ public class PlaceOrderFormController {
     private void loadAllItemCodes() {
         try {
             /*Get all items*/
+
             PlaceOrderDAOImpl placeOrderDAO = new PlaceOrderDAOImpl();
             cmbItemCode.getItems().addAll(placeOrderDAO.loadAllItemCodes());
 
