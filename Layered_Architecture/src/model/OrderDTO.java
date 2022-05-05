@@ -19,7 +19,6 @@ public class OrderDTO  {
     public OrderDTO() {
     }
 
-
     public OrderDTO(String orderId, LocalDate orderDate, String customerId) {
         this.orderId = orderId;
         this.orderDate = orderDate;

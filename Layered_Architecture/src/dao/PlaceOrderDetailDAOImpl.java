@@ -1,12 +1,15 @@
 package dao;
 
-import model.CustomerDTO;
 import model.OrderDetailDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PlaceOrderDetailDAOImpl implements CrudDAO<OrderDetailDTO,String>{
+/**
+ * @author : Sanu Vithanage
+ * @since : 0.1.0
+ **/
+public class PlaceOrderDetailDAOImpl implements CrudDAO<OrderDetailDTO, String> {
 
 
     @Override
@@ -44,3 +47,6 @@ public class PlaceOrderDetailDAOImpl implements CrudDAO<OrderDetailDTO,String>{
         return null;
     }
 }
+
+
+//PlaceOrderDetailDAOImpl

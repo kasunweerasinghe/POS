@@ -43,8 +43,7 @@ public class ManageCustomersFormController {
 
     //Property Injection
     private final CrudDAO<CustomerDTO,String> customerDAO = new CustomerDAOImpl();
-
-
+    
     public void initialize() {
         tblCustomers.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
         tblCustomers.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));

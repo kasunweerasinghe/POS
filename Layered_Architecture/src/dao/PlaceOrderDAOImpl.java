@@ -1,14 +1,17 @@
 package dao;
 
-import db.DBConnection;
-import javafx.scene.control.Alert;
-import model.CustomerDTO;
 import model.OrderDTO;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PlaceOrderDAOImpl implements CrudDAO<OrderDTO,String>{
+/**
+ * @author : Sanu Vithanage
+ * @since : 0.1.0
+ **/
+public class PlaceOrderDAOImpl implements CrudDAO<OrderDTO, String> {
+
     @Override
     public ArrayList<OrderDTO> getAll() throws SQLException, ClassNotFoundException {
         return null;
@@ -16,8 +19,7 @@ public class PlaceOrderDAOImpl implements CrudDAO<OrderDTO,String>{
 
     @Override
     public boolean save(OrderDTO dto) throws SQLException, ClassNotFoundException {
-
-        return SQLUtil.executeUpdate("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)",dto.getOrderId(),dto.getOrderDate(),dto.getCustomerId());
+        return SQLUtil.executeUpdate("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)", dto.getOrderId(), dto.getOrderDate(), dto.getCustomerId());
     }
 
     @Override
@@ -33,7 +35,6 @@ public class PlaceOrderDAOImpl implements CrudDAO<OrderDTO,String>{
     @Override
     public boolean isExists(String oid) throws SQLException, ClassNotFoundException {
         return SQLUtil.executeQuery("SELECT oid FROM `Orders` WHERE oid=?", oid).next();
-
     }
 
     @Override
@@ -43,9 +44,11 @@ public class PlaceOrderDAOImpl implements CrudDAO<OrderDTO,String>{
 
     @Override
     public String generateID() throws SQLException, ClassNotFoundException {
-
         ResultSet rst = SQLUtil.executeQuery("SELECT oid FROM `Orders` ORDER BY oid DESC LIMIT 1;");
         return rst.next() ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1)) : "OID-001";
-
     }
 }
+
+
+
+//PlaceOrderDAOImpl
