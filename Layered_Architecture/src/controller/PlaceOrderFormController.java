@@ -57,11 +57,11 @@ public class PlaceOrderFormController {
     public Label lblDate;
     public Label lblTotal;
 
-    private final CustomerDAO customerDAO = new CustomerDAOImpl();
-    private final ItemDAO itemDAO = new ItemDAOImpl();
-    private final PlaceOrderDAO orderDAO = new PlaceOrderDAOImpl();
-    private final PlaceOrderDetailDAO orderDetailsDAO = new PlaceOrderDetailDAOImpl();
-    private final QueryDAO queryDAO = new QueryDAOImpl();
+//    private final CustomerDAO customerDAO = new CustomerDAOImpl();
+//    private final ItemDAO itemDAO = new ItemDAOImpl();
+//    private final PlaceOrderDAO orderDAO = new PlaceOrderDAOImpl();
+//    private final PlaceOrderDetailDAO orderDetailsDAO = new PlaceOrderDetailDAOImpl();
+//    private final QueryDAO queryDAO = new QueryDAOImpl();
 
     private String orderId;
 
@@ -325,53 +325,7 @@ public class PlaceOrderFormController {
     public boolean saveOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) {
         /*Transaction*/
 
-        try {
-            Connection connection = DBConnection.getDbConnection().getConnection();
-            /*if order id already exist*/
-            if (orderDAO.isExists(orderId)) {
 
-            }
-
-            connection.setAutoCommit(false);
-            boolean save = orderDAO.save(new OrderDTO(orderId, orderDate, customerId));
-
-            if (!save) {
-                connection.rollback();
-                connection.setAutoCommit(true);
-                return false;
-            }
-
-            for (OrderDetailDTO detail : orderDetails) {
-                boolean save1 = orderDetailsDAO.save(detail);
-                if (!save1) {
-                    connection.rollback();
-                    connection.setAutoCommit(true);
-                    return false;
-                }
-
-                //Search & Update Item
-                ItemDTO item = findItem(detail.getItemCode());
-                item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
-
-                //update item
-                System.out.println(item);
-                boolean update = itemDAO.update(item);
-
-                if (!update) {
-                    connection.rollback();
-                    connection.setAutoCommit(true);
-                    return false;
-                }
-            }
-            connection.commit();
-            connection.setAutoCommit(true);
-            return true;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
 
