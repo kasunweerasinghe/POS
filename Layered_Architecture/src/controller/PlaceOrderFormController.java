@@ -3,7 +3,8 @@ package controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import dao.*;
+import dao.Custom.*;
+import dao.Custom.Impl.*;
 import db.DBConnection;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -56,10 +57,11 @@ public class PlaceOrderFormController {
     public Label lblDate;
     public Label lblTotal;
 
-    private final CrudDAO<CustomerDTO, String> customerDAO = new CustomerDAOImpl();
-    private final CrudDAO<ItemDTO, String> itemDAO = new ItemDAOImpl();
-    private final CrudDAO<OrderDTO, String> orderDAO = new PlaceOrderDAOImpl();
-    private final CrudDAO<OrderDetailDTO, String> orderDetailsDAO = new PlaceOrderDetailDAOImpl();
+    private final CustomerDAO customerDAO = new CustomerDAOImpl();
+    private final ItemDAO itemDAO = new ItemDAOImpl();
+    private final PlaceOrderDAO orderDAO = new PlaceOrderDAOImpl();
+    private final PlaceOrderDetailDAO orderDetailsDAO = new PlaceOrderDetailDAOImpl();
+    private final QueryDAO queryDAO = new QueryDAOImpl();
 
     private String orderId;
 

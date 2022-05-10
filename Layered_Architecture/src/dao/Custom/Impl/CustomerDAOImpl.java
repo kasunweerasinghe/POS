@@ -1,5 +1,7 @@
-package dao;
+package dao.Custom.Impl;
 
+import dao.Custom.CustomerDAO;
+import dao.SQLUtil;
 import model.CustomerDTO;
 
 import java.sql.ResultSet;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  * @since : 0.1.0
  **/
 
-public class CustomerDAOImpl implements CrudDAO<CustomerDTO, String> {
+public class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
@@ -68,4 +70,8 @@ public class CustomerDAOImpl implements CrudDAO<CustomerDTO, String> {
         }
     }
 
+    @Override
+    public ArrayList<CustomerDTO> getAllCustomersByAddress(String address) throws ClassNotFoundException, SQLException {
+        return null;
+    }
 }

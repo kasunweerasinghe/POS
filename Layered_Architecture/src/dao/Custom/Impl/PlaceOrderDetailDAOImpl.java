@@ -1,5 +1,7 @@
-package dao;
+package dao.Custom.Impl;
 
+import dao.Custom.PlaceOrderDetailDAO;
+import dao.SQLUtil;
 import model.OrderDetailDTO;
 
 import java.sql.SQLException;
@@ -9,7 +11,8 @@ import java.util.ArrayList;
  * @author : Sanu Vithanage
  * @since : 0.1.0
  **/
-public class PlaceOrderDetailDAOImpl implements CrudDAO<OrderDetailDTO, String> {
+public class PlaceOrderDetailDAOImpl implements PlaceOrderDetailDAO {
+
 
 
     @Override
@@ -49,4 +52,4 @@ public class PlaceOrderDetailDAOImpl implements CrudDAO<OrderDetailDTO, String> 
 }
 
 
-//PlaceOrderDetailDAOImpl
+
