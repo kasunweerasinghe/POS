@@ -3,6 +3,7 @@ package bo;
 import dao.Custom.*;
 import dao.Custom.Impl.*;
 import db.DBConnection;
+import model.CustomerDTO;
 import model.ItemDTO;
 import model.OrderDTO;
 import model.OrderDetailDTO;
@@ -20,8 +21,8 @@ public class PurchaseOrderBOImpl {
     private final QueryDAO queryDAO = new QueryDAOImpl();
 
 
-    public boolean purchaseOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException {
-
+    public boolean purchaseOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException{
+            /*Transaction*/
             Connection connection = DBConnection.getDbConnection().getConnection();
             /*if order id already exist*/
             if (orderDAO.isExists(orderId)) {
@@ -64,6 +65,14 @@ public class PurchaseOrderBOImpl {
             connection.setAutoCommit(true);
             return true;
 
-        //return false;
     }
+
+    public CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException {
+        return customerDAO.search(id);
+    }
+
+    public ItemDTO searchItem(String id) throws SQLException, ClassNotFoundException {
+        return itemDAO.search(id);
+    }
+
 }
