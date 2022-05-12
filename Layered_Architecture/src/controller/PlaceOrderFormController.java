@@ -58,7 +58,7 @@ public class PlaceOrderFormController {
     private String orderId;
 
     //Property Injection(DI)
-    PurchaseOrderBO purchaseOrderBO =  new PurchaseOrderBOImpl();
+    private PurchaseOrderBO purchaseOrderBO =  new PurchaseOrderBOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
 

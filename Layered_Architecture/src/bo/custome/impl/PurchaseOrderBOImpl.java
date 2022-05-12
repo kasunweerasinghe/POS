@@ -3,6 +3,7 @@ package bo.custome.impl;
 import bo.custome.PurchaseOrderBO;
 import dao.Custom.*;
 import dao.Custom.Impl.*;
+import dao.DAOFactory;
 import db.DBConnection;
 import model.CustomerDTO;
 import model.ItemDTO;
@@ -16,11 +17,12 @@ import java.util.List;
 
 public class PurchaseOrderBOImpl implements PurchaseOrderBO {
 
-    private final CustomerDAO customerDAO = new CustomerDAOImpl();
-    private final ItemDAO itemDAO = new ItemDAOImpl();
-    private final PlaceOrderDAO orderDAO = new PlaceOrderDAOImpl();
-    private final PlaceOrderDetailDAO orderDetailsDAO = new PlaceOrderDetailDAOImpl();
-    private final QueryDAO queryDAO = new QueryDAOImpl();
+    //Hiding the object creation logic using the factory design pattern
+    CustomerDAO customerDAO =(CustomerDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.CUSTOMER);
+    ItemDAO itemDAO =(ItemDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.ITEM);
+    PlaceOrderDAO orderDAO =(PlaceOrderDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.ORDER);
+    PlaceOrderDetailDAO orderDetailsDAO  =(PlaceOrderDetailDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.ORDERDETAILS);
+    QueryDAO queryDAO =(QueryDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.QUERYDAO);
 
     @Override
     public boolean purchaseOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException{
@@ -49,7 +51,7 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
                 }
 
                 //Search & Update Item
-//
+
                 ItemDTO item = searchItem(detail.getItemCode());
                 item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
