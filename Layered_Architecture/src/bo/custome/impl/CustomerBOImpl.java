@@ -1,5 +1,6 @@
-package bo;
+package bo.custome.impl;
 
+import bo.custome.CustomerBO;
 import dao.Custom.CustomerDAO;
 import dao.Custom.Impl.CustomerDAOImpl;
 import model.CustomerDTO;
@@ -7,7 +8,7 @@ import model.CustomerDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CustomerBOImpl implements CustomerBO{
+public class CustomerBOImpl implements CustomerBO {
     //Property Injection
     private final CustomerDAO customerDAO = new CustomerDAOImpl();
 

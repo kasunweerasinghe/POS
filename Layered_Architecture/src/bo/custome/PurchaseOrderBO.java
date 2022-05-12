@@ -1,4 +1,4 @@
-package bo;
+package bo.custome;
 
 import db.DBConnection;
 import model.CustomerDTO;

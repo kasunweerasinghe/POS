@@ -1,5 +1,6 @@
-package bo;
+package bo.custome.impl;
 
+import bo.custome.ItemBo;
 import dao.Custom.Impl.ItemDAOImpl;
 import dao.Custom.ItemDAO;
 import model.ItemDTO;
@@ -7,7 +8,7 @@ import model.ItemDTO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ItemBOImpl implements ItemBo{
+public class ItemBOImpl implements ItemBo {
     //Property Injection
     private final ItemDAO itemDAO = new ItemDAOImpl();
 

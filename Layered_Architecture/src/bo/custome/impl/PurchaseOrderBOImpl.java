@@ -1,5 +1,6 @@
-package bo;
+package bo.custome.impl;
 
+import bo.custome.PurchaseOrderBO;
 import dao.Custom.*;
 import dao.Custom.Impl.*;
 import db.DBConnection;
@@ -48,8 +49,8 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
                 }
 
                 //Search & Update Item
-//                ItemDTO item = findItem(detail.getItemCode());
-                ItemDTO item = null;
+//
+                ItemDTO item = searchItem(detail.getItemCode());
                 item.setQtyOnHand(item.getQtyOnHand() - detail.getQty());
 
                 //update item
