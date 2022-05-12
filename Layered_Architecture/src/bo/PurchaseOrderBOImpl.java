@@ -21,7 +21,7 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
     private final PlaceOrderDetailDAO orderDetailsDAO = new PlaceOrderDetailDAOImpl();
     private final QueryDAO queryDAO = new QueryDAOImpl();
 
-
+    @Override
     public boolean purchaseOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException{
             /*Transaction*/
             Connection connection = DBConnection.getDbConnection().getConnection();
@@ -68,30 +68,37 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
 
     }
 
+    @Override
     public CustomerDTO searchCustomer(String id) throws SQLException, ClassNotFoundException {
         return customerDAO.search(id);
     }
 
+    @Override
     public ItemDTO searchItem(String id) throws SQLException, ClassNotFoundException {
         return itemDAO.search(id);
     }
 
+    @Override
     public boolean checkItemISAvailable(String code) throws SQLException, ClassNotFoundException {
         return itemDAO.isExists(code);
     }
 
+    @Override
     public boolean checkCustomerISAvailable(String id) throws SQLException, ClassNotFoundException {
         return customerDAO.isExists(id);
     }
 
+    @Override
     public String generateNewOrderId() throws SQLException, ClassNotFoundException {
         return orderDAO.generateID();
     }
 
+    @Override
     public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
         return customerDAO.getAll();
     }
 
+    @Override
     public ArrayList<ItemDTO> getAllItem() throws SQLException, ClassNotFoundException {
         return itemDAO.getAll();
     }

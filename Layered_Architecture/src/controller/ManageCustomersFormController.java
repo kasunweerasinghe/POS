@@ -43,6 +43,7 @@ public class ManageCustomersFormController {
     public TableView<CustomerTM> tblCustomers;
     public JFXButton btnAddNewCustomer;
 
+    //Property Injection
     private CustomerBO customerBO = new CustomerBOImpl();
 
     public void initialize() {
