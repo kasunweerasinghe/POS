@@ -1,11 +1,10 @@
 package controller;
 
+import bo.PurchaseOrderBO;
 import bo.PurchaseOrderBOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import dao.Custom.*;
-import dao.Custom.Impl.*;
 import db.DBConnection;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -21,7 +20,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.CustomerDTO;
 import model.ItemDTO;
-import model.OrderDTO;
 import model.OrderDetailDTO;
 import view.tdm.OrderDetailTM;
 
@@ -60,11 +58,9 @@ public class PlaceOrderFormController {
     private String orderId;
 
     //Property Injection(DI)
-    PurchaseOrderBODAO purchaseOrderBO =  new PurchaseOrderBOImpl();
+    PurchaseOrderBO purchaseOrderBO =  new PurchaseOrderBOImpl();
 
     public void initialize() throws SQLException, ClassNotFoundException {
-
-
 
         tblOrderDetails.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
         tblOrderDetails.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -133,7 +129,6 @@ public class PlaceOrderFormController {
                 txtCustomerName.clear();
             }
         });
-
 
         cmbItemCode.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newItemCode) -> {
             txtQty.setEditable(newItemCode != null);
@@ -245,7 +240,7 @@ public class PlaceOrderFormController {
             /*Get all items*/
             //DI //Tight coupling
             //PurchaseOrderBOImpl purchaseOrderBO = new PurchaseOrderBOImpl();
-            PurchaseOrderBODAO purchaseOrderBO =  new PurchaseOrderBOImpl();
+            PurchaseOrderBO purchaseOrderBO =  new PurchaseOrderBOImpl();
             ArrayList<ItemDTO> all = purchaseOrderBO.getAllItem();
             for (ItemDTO dto : all) {
                 cmbItemCode.getItems().add(dto.getCode());
