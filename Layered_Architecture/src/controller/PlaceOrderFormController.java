@@ -5,6 +5,8 @@ import bo.custome.impl.PurchaseOrderBOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import dao.Custom.PlaceOrderDAO;
+import dao.DAOFactory;
 import db.DBConnection;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -59,6 +61,9 @@ public class PlaceOrderFormController {
 
     //Property Injection(DI)
     private PurchaseOrderBO purchaseOrderBO =  new PurchaseOrderBOImpl();
+
+    //Hiding the object creation logic using the factory design pattern
+
 
     public void initialize() throws SQLException, ClassNotFoundException {
 

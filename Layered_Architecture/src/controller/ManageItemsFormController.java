@@ -44,6 +44,7 @@ public class ManageItemsFormController {
     //Property Injection
     private ItemBo itemBO = new ItemBOImpl();
 
+
     public void initialize() {
 
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
