@@ -18,11 +18,11 @@ import java.util.List;
 public class PurchaseOrderBOImpl implements PurchaseOrderBO {
 
     //Hiding the object creation logic using the factory design pattern
-    CustomerDAO customerDAO =(CustomerDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.CUSTOMER);
-    ItemDAO itemDAO =(ItemDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.ITEM);
-    PlaceOrderDAO orderDAO =(PlaceOrderDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.ORDER);
-    PlaceOrderDetailDAO orderDetailsDAO  =(PlaceOrderDetailDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.ORDERDETAILS);
-    QueryDAO queryDAO =(QueryDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.QUERYDAO);
+    private CustomerDAO customerDAO =(CustomerDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.CUSTOMER);
+    private ItemDAO itemDAO =(ItemDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.ITEM);
+    private PlaceOrderDAO orderDAO =(PlaceOrderDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.ORDER);
+    private PlaceOrderDetailDAO orderDetailsDAO  =(PlaceOrderDetailDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.ORDERDETAILS);
+    private QueryDAO queryDAO =(QueryDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.QUERYDAO);
 
     @Override
     public boolean purchaseOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException{

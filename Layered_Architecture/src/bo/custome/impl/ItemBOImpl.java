@@ -3,6 +3,7 @@ package bo.custome.impl;
 import bo.custome.ItemBo;
 import dao.Custom.Impl.ItemDAOImpl;
 import dao.Custom.ItemDAO;
+import dao.DAOFactory;
 import model.ItemDTO;
 
 import java.sql.SQLException;
@@ -10,7 +11,10 @@ import java.util.ArrayList;
 
 public class ItemBOImpl implements ItemBo {
     //Property Injection
-    private final ItemDAO itemDAO = new ItemDAOImpl();
+    //private final ItemDAO itemDAO = new ItemDAOImpl();
+
+    //Hiding the object creation logic using the factory design pattern
+    private ItemDAO itemDAO =(ItemDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.ITEM);
 
     @Override
     public ArrayList<ItemDTO> getAllItems() throws SQLException, ClassNotFoundException {
