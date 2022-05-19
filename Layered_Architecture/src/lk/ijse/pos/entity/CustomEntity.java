@@ -3,6 +3,10 @@ package lk.ijse.pos.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * @author : Sanu Vithanage
+ * @since : 0.1.0
+ **/
 public class CustomEntity {
     private String id;
     private String name;
@@ -18,7 +22,7 @@ public class CustomEntity {
     private int qty;
 //    private BigDecimal unitPrice;
 
-    //    private String oid;
+//    private String oid;
     private LocalDate date;
     private String customerID;
 
@@ -130,7 +134,4 @@ public class CustomEntity {
     public void setCustomerID(String customerID) {
         this.customerID = customerID;
     }
-
-
-
 }

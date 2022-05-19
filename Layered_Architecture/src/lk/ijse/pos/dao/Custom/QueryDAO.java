@@ -1,13 +1,17 @@
-package lk.ijse.pos.dao.Custom;
+package lk.ijse.pos.dao.custom;
 
 import lk.ijse.pos.dao.SuperDAO;
 import lk.ijse.pos.dto.CustomDTO;
 import lk.ijse.pos.entity.CustomEntity;
-import lk.ijse.pos.entity.Customer;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * @author : Sanu Vithanage
+ * @since : 0.1.0
+ **/
+
 public interface QueryDAO extends SuperDAO {
-     ArrayList<CustomEntity> searchOrderByOrderID(String ID) throws SQLException, ClassNotFoundException;
+    ArrayList<CustomEntity> searchOrderByOrderID(String id)throws SQLException,ClassNotFoundException;
 }

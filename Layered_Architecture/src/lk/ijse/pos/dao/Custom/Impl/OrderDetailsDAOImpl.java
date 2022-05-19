@@ -1,7 +1,7 @@
-package lk.ijse.pos.dao.Custom.Impl;
+package lk.ijse.pos.dao.custom.impl;
 
-import lk.ijse.pos.dao.Custom.PlaceOrderDetailDAO;
 import lk.ijse.pos.dao.SQLUtil;
+import lk.ijse.pos.dao.custom.OrderDetailsDAO;
 import lk.ijse.pos.entity.OrderDetails;
 
 import java.sql.SQLException;
@@ -11,9 +11,7 @@ import java.util.ArrayList;
  * @author : Sanu Vithanage
  * @since : 0.1.0
  **/
-public class PlaceOrderDetailDAOImpl implements PlaceOrderDetailDAO {
-
-
+public class OrderDetailsDAOImpl implements OrderDetailsDAO {
 
     @Override
     public ArrayList<OrderDetails> getAll() throws SQLException, ClassNotFoundException {
@@ -36,7 +34,7 @@ public class PlaceOrderDetailDAOImpl implements PlaceOrderDetailDAO {
     }
 
     @Override
-    public boolean isExists(String s) throws SQLException, ClassNotFoundException {
+    public boolean exist(String s) throws SQLException, ClassNotFoundException {
         return false;
     }
 
@@ -46,10 +44,7 @@ public class PlaceOrderDetailDAOImpl implements PlaceOrderDetailDAO {
     }
 
     @Override
-    public String generateID() throws SQLException, ClassNotFoundException {
+    public String generateNewID() throws SQLException, ClassNotFoundException {
         return null;
     }
 }
-
-
-

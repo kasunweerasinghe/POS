@@ -1,7 +1,10 @@
 package lk.ijse.pos.entity;
 
+/**
+ * @author : Sanu Vithanage
+ * @since : 0.1.0
+ **/
 public class Customer {
-
     private String id;
     private String name;
     private String address;
@@ -38,6 +41,4 @@ public class Customer {
     public void setAddress(String address) {
         this.address = address;
     }
-
-
 }

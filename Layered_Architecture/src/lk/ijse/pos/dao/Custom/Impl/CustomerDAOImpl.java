@@ -1,9 +1,8 @@
-package lk.ijse.pos.dao.Custom.Impl;
+package lk.ijse.pos.dao.custom.impl;
 
-import lk.ijse.pos.dao.Custom.CustomerDAO;
 import lk.ijse.pos.dao.SQLUtil;
+import lk.ijse.pos.dao.custom.CustomerDAO;
 import lk.ijse.pos.entity.Customer;
-import lk.ijse.pos.dto.CustomerDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
  **/
 
 public class CustomerDAOImpl implements CustomerDAO {
-
 
     @Override
     public ArrayList<Customer> getAll() throws SQLException, ClassNotFoundException {
@@ -49,7 +47,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 
     @Override
-    public boolean isExists(String id) throws SQLException, ClassNotFoundException {
+    public boolean exist(String id) throws SQLException, ClassNotFoundException {
         return SQLUtil.executeQuery("SELECT id FROM Customer WHERE id=?", id).next();
     }
 
@@ -60,7 +58,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public String generateID() throws SQLException, ClassNotFoundException {
+    public String generateNewID() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.executeQuery("SELECT id FROM Customer ORDER BY id DESC LIMIT 1;");
         if (rst.next()) {
             String id = rst.getString("id");
@@ -72,7 +70,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public ArrayList<CustomerDTO> getAllCustomersByAddress(String address) throws ClassNotFoundException, SQLException {
+    public ArrayList<Customer> getAllCustomersByAddress(String address) throws ClassNotFoundException, SQLException {
         return null;
     }
 }

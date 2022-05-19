@@ -1,9 +1,8 @@
-package lk.ijse.pos.dao.Custom.Impl;
+package lk.ijse.pos.dao.custom.impl;
 
-import lk.ijse.pos.dao.Custom.ItemDAO;
 import lk.ijse.pos.dao.SQLUtil;
+import lk.ijse.pos.dao.custom.ItemDAO;
 import lk.ijse.pos.entity.Item;
-import lk.ijse.pos.dto.ItemDTO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +19,7 @@ public class ItemDAOImpl implements ItemDAO {
         ResultSet rst = SQLUtil.executeQuery("SELECT * FROM Item");
         ArrayList<Item> allItems = new ArrayList<>();
         while (rst.next()) {
-            allItems.add(new Item(rst.getString(1), rst.getString(2), rst.getInt(3),rst.getBigDecimal(4)));
+            allItems.add(new Item(rst.getString(1), rst.getString(2), rst.getInt(3), rst.getBigDecimal(4)));
         }
         return allItems;
     }
@@ -50,12 +49,12 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public boolean isExists(String code) throws SQLException, ClassNotFoundException {
+    public boolean exist(String code) throws SQLException, ClassNotFoundException {
         return SQLUtil.executeQuery("SELECT code FROM Item WHERE code=?", code).next();
     }
 
     @Override
-    public String generateID() throws SQLException, ClassNotFoundException {
+    public String generateNewID() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.executeQuery("SELECT code FROM Item ORDER BY code DESC LIMIT 1;");
         if (rst.next()) {
             String id = rst.getString("code");
@@ -67,7 +66,7 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
     @Override
-    public ArrayList<ItemDTO> getItemFromPrice(double price) throws ClassNotFoundException, SQLException {
+    public ArrayList<Item> getItemFromPrice(double price) throws ClassNotFoundException, SQLException {
         return null;
     }
 }

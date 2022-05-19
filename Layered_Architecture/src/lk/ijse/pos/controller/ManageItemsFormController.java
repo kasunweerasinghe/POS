@@ -1,7 +1,7 @@
 package lk.ijse.pos.controller;
 
 import lk.ijse.pos.bo.BOFactory;
-import lk.ijse.pos.bo.custome.ItemBo;
+import lk.ijse.pos.bo.custom.ItemBO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
@@ -22,7 +22,7 @@ import lk.ijse.pos.view.tdm.ItemTM;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +30,13 @@ import java.util.ArrayList;
  * @since : 0.1.0
  **/
 
-public class ManageItemsFormController  {
+public class ManageItemsFormController {
+    //DI through property injection
+//    private final ItemBO itemBO = new ItemBOImpl();
+
+    private ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
+
+
     public AnchorPane root;
     public JFXTextField txtCode;
     public JFXTextField txtDescription;
@@ -41,12 +47,7 @@ public class ManageItemsFormController  {
     public JFXTextField txtUnitPrice;
     public JFXButton btnAddNewItem;
 
-    //Property Injection
-    private ItemBo itemBO =(ItemBo) BOFactory.getBoFactory().getBO(BOFactory.BOType.ITEM);
-
-
     public void initialize() {
-
         tblItems.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("code"));
         tblItems.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("description"));
         tblItems.getColumns().get(2).setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
@@ -80,12 +81,10 @@ public class ManageItemsFormController  {
         tblItems.getItems().clear();
         try {
             /*Get all items*/
-            ArrayList<ItemDTO> allCustomers = itemBO.getAllItems();
-
-            for(ItemDTO item:allCustomers){
-                tblItems.getItems().add(new ItemTM(item.getCode(),item.getDescription(),item.getUnitPrice(),item.getQtyOnHand()));
+            ArrayList<ItemDTO> allItems = itemBO.getAllItems();
+            for (ItemDTO item : allItems) {
+                tblItems.getItems().add(new ItemTM(item.getCode(), item.getDescription(), item.getUnitPrice(), item.getQtyOnHand()));
             }
-
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {
@@ -141,10 +140,7 @@ public class ManageItemsFormController  {
             if (!existItem(code)) {
                 new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
             }
-
             itemBO.deleteItem(code);
-
-
             tblItems.getItems().remove(tblItems.getSelectionModel().getSelectedItem());
             tblItems.getSelectionModel().clearSelection();
             initUI();
@@ -183,10 +179,8 @@ public class ManageItemsFormController  {
                     new Alert(Alert.AlertType.ERROR, code + " already exists").show();
                 }
                 //Save Item
-                itemBO.saveItems(new ItemDTO(code,description,unitPrice,qtyOnHand));
-
+                itemBO.saveItem(new ItemDTO(code, description, unitPrice, qtyOnHand));
                 tblItems.getItems().add(new ItemTM(code, description, unitPrice, qtyOnHand));
-
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             } catch (ClassNotFoundException e) {
@@ -199,9 +193,7 @@ public class ManageItemsFormController  {
                     new Alert(Alert.AlertType.ERROR, "There is no such item associated with the id " + code).show();
                 }
                 /*Update Item*/
-                itemBO.updateItem(new ItemDTO(code, description,unitPrice,qtyOnHand));
-
-
+                itemBO.updateItem(new ItemDTO(code, description, unitPrice, qtyOnHand));
                 ItemTM selectedItem = tblItems.getSelectionModel().getSelectedItem();
                 selectedItem.setDescription(description);
                 selectedItem.setQtyOnHand(qtyOnHand);
@@ -213,21 +205,18 @@ public class ManageItemsFormController  {
                 e.printStackTrace();
             }
         }
-
         btnAddNewItem.fire();
     }
 
 
     private boolean existItem(String code) throws SQLException, ClassNotFoundException {
-        return itemBO.itemExists(code);
+        return itemBO.itemExist(code);
     }
 
 
     private String generateNewId() {
         try {
-
-            return itemBO.generateNewItemID();
-
+            return itemBO.generateNewItemCode();
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         } catch (ClassNotFoundException e) {

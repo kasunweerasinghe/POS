@@ -1,7 +1,7 @@
-package lk.ijse.pos.dao.Custom.Impl;
+package lk.ijse.pos.dao.custom.impl;
 
-import lk.ijse.pos.dao.Custom.PlaceOrderDAO;
 import lk.ijse.pos.dao.SQLUtil;
+import lk.ijse.pos.dao.custom.OrderDAO;
 import lk.ijse.pos.entity.Orders;
 
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author : Sanu Vithanage
  * @since : 0.1.0
  **/
-public class PlaceOrderDAOImpl implements PlaceOrderDAO {
+public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public ArrayList<Orders> getAll() throws SQLException, ClassNotFoundException {
@@ -21,7 +21,7 @@ public class PlaceOrderDAOImpl implements PlaceOrderDAO {
 
     @Override
     public boolean save(Orders entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.executeUpdate("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)",entity.getOid(),entity.getDate(),entity.getCustomerID());
+        return SQLUtil.executeUpdate("INSERT INTO `Orders` (oid, date, customerID) VALUES (?,?,?)", entity.getOid(), entity.getDate(), entity.getCustomerID());
     }
 
     @Override
@@ -35,7 +35,7 @@ public class PlaceOrderDAOImpl implements PlaceOrderDAO {
     }
 
     @Override
-    public boolean isExists(String oid) throws SQLException, ClassNotFoundException {
+    public boolean exist(String oid) throws SQLException, ClassNotFoundException {
         return SQLUtil.executeQuery("SELECT oid FROM `Orders` WHERE oid=?", oid).next();
     }
 
@@ -45,12 +45,9 @@ public class PlaceOrderDAOImpl implements PlaceOrderDAO {
     }
 
     @Override
-    public String generateID() throws SQLException, ClassNotFoundException {
+    public String generateNewID() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtil.executeQuery("SELECT oid FROM `Orders` ORDER BY oid DESC LIMIT 1;");
         return rst.next() ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1)) : "OID-001";
     }
+
 }
-
-
-
-

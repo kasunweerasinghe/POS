@@ -2,6 +2,10 @@ package lk.ijse.pos.entity;
 
 import java.math.BigDecimal;
 
+/**
+ * @author : Sanu Vithanage
+ * @since : 0.1.0
+ **/
 public class Item {
     private String code;
     private String description;
@@ -49,5 +53,4 @@ public class Item {
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
-
 }

@@ -1,27 +1,29 @@
-package lk.ijse.pos.bo.custome.impl;
+package lk.ijse.pos.bo.custom.impl;
 
-import lk.ijse.pos.bo.custome.CustomerBO;
-import lk.ijse.pos.dao.Custom.CustomerDAO;
+import lk.ijse.pos.bo.custom.CustomerBO;
 import lk.ijse.pos.dao.DAOFactory;
-import lk.ijse.pos.entity.Customer;
+import lk.ijse.pos.dao.custom.CustomerDAO;
 import lk.ijse.pos.dto.CustomerDTO;
+import lk.ijse.pos.entity.Customer;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * @author : Sanu Vithanage
+ * @since : 0.1.0
+ **/
+
 public class CustomerBOImpl implements CustomerBO {
-    //Property Injection
-    //private final CustomerDAO customerDAO = new CustomerDAOImpl();
 
-    //Hiding the object creation logic using the factory design pattern
-    private CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.CUSTOMER);
-
+    private final CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
+//    private final CustomerDAO customerDAO = new CustomerDAOImpl();
 
     @Override
-    public ArrayList<CustomerDTO> getAllCustomer() throws SQLException, ClassNotFoundException {
-        ArrayList<CustomerDTO> allCustomers = new ArrayList<>();
-        ArrayList<Customer> all =  customerDAO.getAll();
-        for(Customer customer : all){
+    public ArrayList<CustomerDTO> getAllCustomers() throws SQLException, ClassNotFoundException {
+        ArrayList<Customer> all = customerDAO.getAll();
+        ArrayList<CustomerDTO> allCustomers= new ArrayList<>();
+        for (Customer customer : all) {
             allCustomers.add(new CustomerDTO(customer.getId(),customer.getName(),customer.getAddress()));
         }
         return allCustomers;
@@ -38,8 +40,8 @@ public class CustomerBOImpl implements CustomerBO {
     }
 
     @Override
-    public boolean customerExists(String id) throws SQLException, ClassNotFoundException {
-        return customerDAO.isExists(id);
+    public boolean customerExist(String id) throws SQLException, ClassNotFoundException {
+        return customerDAO.exist(id);
     }
 
     @Override
@@ -49,7 +51,7 @@ public class CustomerBOImpl implements CustomerBO {
 
     @Override
     public String generateNewCustomerID() throws SQLException, ClassNotFoundException {
-        return customerDAO.generateID();
+        return customerDAO.generateNewID();
     }
 
 }
