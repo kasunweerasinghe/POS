@@ -1,12 +1,11 @@
 package controller;
 
+import bo.BOFactory;
 import bo.custome.PurchaseOrderBO;
 import bo.custome.impl.PurchaseOrderBOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import dao.Custom.PlaceOrderDAO;
-import dao.DAOFactory;
 import db.DBConnection;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -41,7 +40,7 @@ import java.util.stream.Collectors;
  * @since : 0.1.0
  **/
 
-public class PlaceOrderFormController {
+public class PlaceOrderFormController  {
 
     public AnchorPane root;
     public JFXButton btnPlaceOrder;
@@ -60,9 +59,7 @@ public class PlaceOrderFormController {
     private String orderId;
 
     //Property Injection(DI)
-    private PurchaseOrderBO purchaseOrderBO =  new PurchaseOrderBOImpl();
-
-    //Hiding the object creation logic using the factory design pattern
+    private PurchaseOrderBO purchaseOrderBO =(PurchaseOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOType.PURCHASEORDER);
 
 
     public void initialize() throws SQLException, ClassNotFoundException {

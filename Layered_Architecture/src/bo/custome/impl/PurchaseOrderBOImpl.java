@@ -24,6 +24,12 @@ public class PurchaseOrderBOImpl implements PurchaseOrderBO {
     private PlaceOrderDetailDAO orderDetailsDAO  =(PlaceOrderDetailDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.ORDERDETAILS);
     private QueryDAO queryDAO =(QueryDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOType.QUERYDAO);
 
+    //Exposed the object creation logic
+    //private final ItemDAO itemDAO = new ItemDAOImpl();
+    //private final OrderDAO orderDAO = new OrderDAOImpl();
+    //private final OrderDetailsDAO orderDetailsDAO = new OrderDetailsDAOImpl();
+    //private final QueryDAO queryDAO = new QueryDAOImpl();
+
     @Override
     public boolean purchaseOrder(String orderId, LocalDate orderDate, String customerId, List<OrderDetailDTO> orderDetails) throws SQLException, ClassNotFoundException{
             /*Transaction*/
